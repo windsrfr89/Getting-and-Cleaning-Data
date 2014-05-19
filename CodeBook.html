@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=9" >
+
+<title>Description of data</title>
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 12px;
+   margin: 8px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 { 
+   font-size:2.2em; 
+}
+
+h2 { 
+   font-size:1.8em; 
+}
+
+h3 { 
+   font-size:1.4em; 
+}
+
+h4 { 
+   font-size:1.0em; 
+}
+
+h5 { 
+   font-size:0.9em; 
+}
+
+h6 { 
+   font-size:0.8em; 
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre {	
+   margin-top: 0;
+   max-width: 95%;
+   border: 1px solid #ccc;
+   white-space: pre-wrap;
+}
+
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code.r, code.cpp {
+   background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * { 
+      background: transparent !important; 
+      color: black !important; 
+      filter:none !important; 
+      -ms-filter: none !important; 
+   }
+
+   body { 
+      font-size:12pt; 
+      max-width:100%; 
+   }
+       
+   a, a:visited { 
+      text-decoration: underline; 
+   }
+
+   hr { 
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote { 
+      padding-right: 1em; 
+      page-break-inside: avoid; 
+   }
+
+   tr, img { 
+      page-break-inside: avoid; 
+   }
+
+   img { 
+      max-width: 100% !important; 
+   }
+
+   @page :left { 
+      margin: 15mm 20mm 15mm 10mm; 
+   }
+     
+   @page :right { 
+      margin: 15mm 10mm 15mm 20mm; 
+   }
+
+   p, h2, h3 { 
+      orphans: 3; widows: 3; 
+   }
+
+   h2, h3 { 
+      page-break-after: avoid; 
+   }
+}
+
+</style>
+
+
+
+
+
+</head>
+
+<body>
+<h3>Description of data</h3>
+
+<h4>Tidy data set produced by run_analysis</h4>
+
+<ul>
+<li>&#39;TidyData.txt&#39;
+
+<ul>
+<li>180 rows: One per subject (30) per activity (6)</li>
+<li>81 columns: One per feature variable representing a mean or std</li>
+<li>The values are the average of that variable across all (10,299) trials from<br/>
+the original data set</li>
+</ul></li>
+</ul>
+
+<h4>Original data from UCI HAR Dataset (only files used by run_analysis)</h4>
+
+<ul>
+<li><p>&#39;activity_labels.txt&#39;</p>
+
+<ul>
+<li>6 rows by 2 columns</li>
+<li>Each row matches an activity number (e.g. - 1) to a descriptive activity<br/>
+name (e.g. - &ldquo;WALKING&rdquo;)</li>
+</ul></li>
+<li><p>&#39;features.txt&#39;</p>
+
+<ul>
+<li>561 rows by 2 columns</li>
+<li>Each row matches a feature number (e.g. - 5) to the corresponding variable<br/>
+name (e.g. - &ldquo;tBodyAcc-std()-Y&rdquo;)</li>
+</ul></li>
+<li><p>&#39;subject_<test OR train>.txt&#39;</p>
+
+<ul>
+<li>1 column containing the number of the subject that each time trial<br/>
+corresponds to</li>
+<li>One row per time trial (2,947 in test and 7,xxx in train)</li>
+</ul></li>
+<li><p>&#39;X_<test OR train>.txt&#39;</p>
+
+<ul>
+<li>561 columns containing the calculated values for each of the 561 features</li>
+<li>One row per time trial</li>
+</ul></li>
+<li><p>y_<test OR train>.txt&#39;</p>
+
+<ul>
+<li>1 column containing the activity that was being performed by the subject<br/>
+during each time trial</li>
+<li>One row per time trial</li>
+</ul></li>
+</ul>
+
+<h3>Steps performed by run_analysis.R</h3>
+
+<ol>
+<li><p>Read in the subject, activity (y), and feature (X) data for both the test<br/>
+and train data sets</p></li>
+<li><p>Read in the features.txt file, which contains the names for the 561 columns<br/>
+of the feature data</p></li>
+<li><p>From the 561 original features, identify only those representing a mean or<br/>
+standard deviation calculation by pattern matching on names that contain<br/>
+&ldquo;-mean&rdquo; or &ldquo;-std&rdquo;</p>
+
+<ul>
+<li>Use the resulting list to eliminate all non-relevant columns from each of the<br/>
+test and train feature data frames</li>
+</ul></li>
+<li><p>Append the relative subject and activity data to both of the test and train<br/>
+feature data frames by binding them as two new columns to the left side of the<br/>
+existing data frame</p></li>
+<li><p>Merge the test and train data sets by appending the rows from train under the<br/>
+rows from test (could just as easily have done this in the opposite order; for<br/>
+our purposes one doesn&#39;t make any more sense than the other)</p></li>
+<li><p>Clean up the feature variable names by removing hyphens and parentheses and<br/>
+assign them as column names of the combined data frame</p>
+
+<ul>
+<li><em>These were intentionally left in mixed case to improve readability in the<br/>
+resulting text file</em></li>
+</ul></li>
+<li><p>Replace numbers (1 - 6) in the Activity column with descriptive activity<br/>
+names (e.g. WALKING) from activity_labels.txt</p></li>
+<li><p>Create the final, tidy data set by calculating the average for each of the<br/>
+mean and std feature variables per subject per activity</p></li>
+<li><p>Write the final, tidy data set to a text file in the home directory named<br/>
+&ldquo;TidyData.txt&rdquo;</p></li>
+</ol>
+
+<h3>Additional Notes</h3>
+
+<ul>
+<li>The &ldquo;Inertial Signals&rdquo; data in both the test and train folders is not required<br/>
+by run_analysis
+
+<ul>
+<li>The 561 features recorded in X_test.txt and X_train.txt are variables calculated<br/>
+from the inertial signals and for the purpose of this project, we have no need<br/>
+to go back and look at the raw data</li>
+</ul></li>
+</ul>
+
+</body>
+
+</html>
+
